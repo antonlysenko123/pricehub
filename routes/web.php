@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\ProductPriceController;
+use App\Http\Controllers\MatrixController;
+
+Route::post('/matrix/sync', [MatrixController::class, 'sync'])->name('matrix.sync');
+Route::get('/matrix/statuses', [MatrixController::class, 'statuses'])->name('matrix.statuses');
+Route::get('/matrix', [MatrixController::class, 'index']);
+Route::post('/matrix/import', [MatrixController::class, 'import'])->name('matrix.import');
+Route::get('/price-stack', [ProductPriceController::class, 'index']);
 
 Route::get('/', function () {
     return redirect()->route('suppliers.index');
@@ -15,13 +23,11 @@ Route::prefix('suppliers')->name('suppliers.')->group(function () {
     Route::put('/{supplier}',    [SupplierController::class, 'update'])->name('update');
     Route::delete('/{supplier}', [SupplierController::class, 'destroy'])->name('destroy');
 
-    // дії з прайсами
     Route::post('/{supplier}/fetch',  [SupplierController::class, 'fetch'])->name('fetch');
     Route::post('/{supplier}/import', [SupplierController::class, 'import'])->name('import');
     Route::post('/{supplier}/sync',   [SupplierController::class, 'sync'])->name('sync');
 
     Route::get('/{supplier}/preview', [SupplierController::class, 'preview'])->name('preview');
 
-    // AJAX для прогрес-бару
     Route::get('/statuses', [SupplierController::class, 'statuses'])->name('statuses');
 });

@@ -8,17 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('matrix_sync_status', function (Blueprint $table) {
+        Schema::create('matrix_syncs', function (Blueprint $table) {
             $table->id();
+            $table->string('status')->nullable(); // running / done / failed
+            $table->integer('progress')->default(0);
             $table->integer('total')->default(0);
             $table->integer('processed')->default(0);
-            $table->string('status')->default('idle'); // idle | running | done
+            $table->string('current_action')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('matrix_sync_status');
+        Schema::dropIfExists('matrix_syncs');
     }
 };

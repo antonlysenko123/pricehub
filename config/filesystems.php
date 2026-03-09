@@ -35,6 +35,17 @@ return [
             'throw'                   => false,
             'report'                  => false,
         ],
+        
+        'matrix_ftp' => [
+    'driver' => 'ftp',
+    'host' => env('MATRIX_FTP_HOST'),
+    'username' => env('MATRIX_FTP_USERNAME'),
+    'password' => env('MATRIX_FTP_PASSWORD'),
+    'root' => '/',
+    'passive' => true,
+    'ssl' => false,
+    'timeout' => 300,
+],
 
     ],
 
